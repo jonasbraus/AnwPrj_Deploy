@@ -5,6 +5,11 @@ import {deleteItem, editItem} from "@/components/Icons";
 
 export default function SemesterTile(p)
 {
+    let editable = true;
+    if (p.editable != null)
+    {
+        editable = p.editable
+    }
     useEffect(() =>
     {
         window.addEventListener("contextmenu", (e) => (e.preventDefault()))
@@ -12,10 +17,15 @@ export default function SemesterTile(p)
 
     return (
         <div onClick={(e) => p.onClick(e)} className={"semester-tile box-shadow"}>
-            <p>{p.text}</p>
+            <p style={{
+                lineHeight: "80%"
+            }}>{p.text}</p>
+            <p style={{
+                lineHeight: "80%"
+            }}>{p.text2}</p>
             <StatusBar progress={0}/>
             <div style={{
-                display: "flex",
+                display: editable ? "flex" : "none",
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",

@@ -22,8 +22,13 @@ export default function Login() {
 
             url = "http://localhost:8080/users/check?sessionid=" + value;
             fetch(url).then(r => r.json()).then(u => localStorage.setItem("userid", u.id))
-
-            await router.push("/semesteroverview")
+            let admin = 0
+            await fetch(url).then(o => o.json()).then(user => {
+                admin = user.permissions})
+            localStorage.setItem("admin", admin)
+            if(admin === 1) {
+                await router.push("/semesteroverview")
+            }else await router.push("/semesteroverviewLecturer")
 
         } else {
             setInputPassword("");
