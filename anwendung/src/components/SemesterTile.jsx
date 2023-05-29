@@ -21,7 +21,8 @@ export default function SemesterTile(p)
                 lineHeight: "80%"
             }}>{p.text}</p>
             <p style={{
-                lineHeight: "80%"
+                lineHeight: "80%",
+                color: "gray"
             }}>{p.text2}</p>
             <StatusBar progress={0}/>
             <div style={{

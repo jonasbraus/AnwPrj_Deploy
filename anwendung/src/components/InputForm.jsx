@@ -2,6 +2,7 @@ import Button from "@/components/Button";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import Background from "@/components/Background";
+import {baseURL} from "@/components/Constants";
 
 
 let userModuleMapping = new Map()
@@ -29,12 +30,12 @@ export default function InputForm(p) {
     async function getAllUsers() {
         console.log("update")
         let sessionid = localStorage.getItem("sessionid");
-        let url = "http://localhost:8080/users/all?sessionid=" + sessionid;
+        let url = baseURL + "/users/all?sessionid=" + sessionid;
 
 
         await fetch(url).then(response => response.json()).then(async user => {
             setUsers(user)
-            let mURL = "http://localhost:8080/module/suid?sessionid=" + localStorage.getItem("sessionid") + "&semesterid=" + localStorage.getItem("currentsid") + "&userid=";
+            let mURL = baseURL + "/module/suid?sessionid=" + localStorage.getItem("sessionid") + "&semesterid=" + localStorage.getItem("currentsid") + "&userid=";
             for(let i = 0; i < user.length; i++)
             {
                 mURL += user[i].id;
@@ -127,7 +128,7 @@ export default function InputForm(p) {
             "endyear": endYear
         }
 
-        let url = "http://localhost:8080/semester?sessionid=" + localStorage.getItem("sessionid");
+        let url = baseURL + "/semester?sessionid=" + localStorage.getItem("sessionid");
         let method = p.courseName == null ? "POST" : "PUT";
 
 
@@ -156,7 +157,7 @@ export default function InputForm(p) {
                 "activated": value.getActivated()
             }
             if (value.getChecked()) {
-                let updateURL = "http://localhost:8080/module?sessionid=" + localStorage.getItem("sessionid");
+                let updateURL = baseURL + "/module?sessionid=" + localStorage.getItem("sessionid");
                 await fetch(updateURL, {
                     method: method,
                     headers: {"Content-Type": "application/json"},
@@ -165,7 +166,7 @@ export default function InputForm(p) {
             }
             else
             {
-                let deleteURL = "http://localhost:8080/module?sessionid=" + localStorage.getItem("sessionid") +
+                let deleteURL = baseURL + "/module?sessionid=" + localStorage.getItem("sessionid") +
                     "&semesterid=" + semesterid +
                     "&userid=" + value.getUserid();
                 await fetch(deleteURL, {

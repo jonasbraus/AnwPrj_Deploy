@@ -6,11 +6,11 @@ import {useRouter} from "next/router";
 import PopUp from "@/components/PopUp";
 import Background from "@/components/Background";
 import Logout from "@/components/Logout";
-
+import {baseURL} from "@/components/Constants"
 
 export default function SemesteroverviewLecturer(p) {
     function getModules() {
-        let urlTest = "http://localhost:8080/module/id?sessionid=" + localStorage.getItem("sessionid");
+        let urlTest = baseURL + "/module/id?sessionid=" + localStorage.getItem("sessionid");
 
         fetch(urlTest).then(response => response.json()).then(m => {
             setEntries(m);
@@ -26,7 +26,7 @@ export default function SemesteroverviewLecturer(p) {
             }
 
             let temp = []
-            let semesterURL = "http://localhost:8080/semester/id/all?ids=" + args + "&sessionid=" + localStorage.getItem("sessionid");
+            let semesterURL = baseURL + "/semester/id/all?ids=" + args + "&sessionid=" + localStorage.getItem("sessionid");
             fetch(semesterURL).then(r => r.json()).then(sem => {
                 sem.map(e => {
                     temp.push(e.name)

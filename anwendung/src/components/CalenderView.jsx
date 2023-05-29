@@ -3,6 +3,7 @@ import Button from "@/components/Button";
 import {list} from "postcss";
 import Background from "@/components/Background";
 import WeekSelector from "@/components/WeekSelector";
+import {baseURL} from "@/components/Constants";
 
 let cellHeight = 20;
 
@@ -21,7 +22,7 @@ export default function CalenderView(p) {
     const scrollRef = useRef(null);
 
     function readEntries() {
-        let url = "http://localhost:8080/entries?semesterid=" + localStorage.getItem("currentsid") +
+        let url = baseURL + "/entries?semesterid=" + localStorage.getItem("currentsid") +
             "&daynumber=" + currentWeekStartDay + "&yearnumber=" + currentYear + "&sessionid=" + localStorage.getItem("sessionid");
         try {
             fetch(url).then(r => r.json()).then(en => {
@@ -33,7 +34,7 @@ export default function CalenderView(p) {
     }
 
     function pushEntry(currentColumnID, row) {
-        let url = "http://localhost:8080/entries" + "?sessionid=" + localStorage.getItem("sessionid")
+        let url = baseURL + "/entries" + "?sessionid=" + localStorage.getItem("sessionid")
         let json = {
             "id": 0,
             "daynumber": currentWeekStartDay + currentColumnID,
@@ -54,7 +55,7 @@ export default function CalenderView(p) {
     }
 
     function deleteEntry(id) {
-        let url = "http://localhost:8080/entries?id=" + id + "&sessionid=" + localStorage.getItem("sessionid");
+        let url = baseURL + "/entries?id=" + id + "&sessionid=" + localStorage.getItem("sessionid");
         fetch(url, {
             method: "DELETE"
         }).then(r => readEntries())
@@ -93,7 +94,7 @@ export default function CalenderView(p) {
         if (selectedElement != null) {
             let id = selectedElement.id;
 
-            let url = "http://localhost:8080/entries?sessionid=" + localStorage.getItem("sessionid");
+            let url = baseURL + "/entries?sessionid=" + localStorage.getItem("sessionid");
             let json = {
                 "id": id,
                 "daynumber": 0,
@@ -246,7 +247,7 @@ export default function CalenderView(p) {
         selectedElement = null;
         grabbedDown = false;
 
-        let url = "http://localhost:8080/semester/id?sessionid=" + localStorage.getItem("sessionid") +
+        let url = baseURL + "/semester/id?sessionid=" + localStorage.getItem("sessionid") +
             "&id=" + localStorage.getItem("currentsid");
 
         fetch(url).then(r => r.json()).then(s => {

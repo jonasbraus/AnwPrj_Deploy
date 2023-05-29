@@ -3,10 +3,11 @@ import Button from "@/components/Button";
 import {NextResponse} from "next/server";
 import Link from "next/link";
 import {useRouter} from "next/router";
+import {baseURL} from "@/components/Constants";
 
 export default function Login() {
 
-    let url = "http://localhost:8080/users"
+    let url = baseURL + "/users"
 
     async function on_login_click() {
         url += "?mail=" + inputUserName + "&password=" + inputPassword;
@@ -20,7 +21,7 @@ export default function Login() {
         if (value != "failed") {
             localStorage.setItem("sessionid", value);
 
-            url = "http://localhost:8080/users/check?sessionid=" + value;
+            url = baseURL + "/users/check?sessionid=" + value;
             fetch(url).then(r => r.json()).then(u => localStorage.setItem("userid", u.id))
             let admin = 0
             await fetch(url).then(o => o.json()).then(user => {

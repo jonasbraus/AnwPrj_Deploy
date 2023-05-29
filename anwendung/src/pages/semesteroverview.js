@@ -6,12 +6,13 @@ import {useRouter} from "next/router";
 import PopUp from "@/components/PopUp";
 import Background from "@/components/Background";
 import Logout from "@/components/Logout";
+import {baseURL} from "@/components/Constants";
 
 export default function SemesterOverview(p)
 {
     async function getSemesters()
     {
-        let urlTest = "http://localhost:8080/semester/all?sessionid=" + localStorage.getItem("sessionid");
+        let urlTest = baseURL + "/semester/all?sessionid=" + localStorage.getItem("sessionid");
 
 
             await fetch(urlTest).then(response => response.json()).then(s => {
@@ -57,7 +58,7 @@ export default function SemesterOverview(p)
     async function funcButtonDelete()
     {
         let id = localStorage.getItem("currentsid");
-        let url = "http://localhost:8080/semester?sessionid=" + localStorage.getItem("sessionid") + "&id=" + id;
+        let url = baseURL + "/semester?sessionid=" + localStorage.getItem("sessionid") + "&id=" + id;
         await fetch(url, {
             method: "DELETE"
         });

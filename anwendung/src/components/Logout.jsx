@@ -1,5 +1,6 @@
 import Button from "@/components/Button";
 import {useRouter} from "next/router";
+import {baseURL} from "@/components/Constants";
 
 export default function Logout()
 {
@@ -7,7 +8,7 @@ export default function Logout()
 
     async function logout()
     {
-        let url = "http://localhost:8080/users/logout?sessionid=" + localStorage.getItem("sessionid");
+        let url = baseURL + "/users/logout?sessionid=" + localStorage.getItem("sessionid");
         await fetch(url)
         await router.push("/")
     }
